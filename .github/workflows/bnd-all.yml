@@ -1,0 +1,135 @@
+name: Build and deploy all targets
+
+on:
+  push:
+    tags:
+      - '*'
+      
+jobs:
+  deploy-windows-msvc-win32-debug:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Install MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m /p:Configuration=Debug /p:Platform=x86 build/visual_studio/cheetah.sln
+    - name: Run tests
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: build/visual_studio/bin/Debug/Win32/cheetah_tests
+    - name: Compress build
+      uses: papeloto/action-zip@v1
+      with:
+        files: build/visual_studio/bin/Debug/Win32/
+        recursive: false
+        dest: cheetah-msvc-debug-win32.zip
+    - name: Get tag
+      id: tag
+      uses: dawidd6/action-get-tag@v1
+    - name: Release build on GitHub
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "cheetah-msvc-debug-win32.zip"
+        body: Lorem ipsum
+        name: ${{steps.tag.outputs.tag}} (MSVC, Debug, Win32)
+        token: ${{ secrets.GITHUB_TOKEN }}
+      
+  deploy-windows-msvc-win32-release:
+    runs-on: windows-latest    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Install MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m /p:Configuration=Release /p:Platform=x86 build/visual_studio/cheetah.sln
+    - name: Run tests
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: build/visual_studio/bin/Release/Win32/cheetah_tests
+    - name: Compress build
+      uses: papeloto/action-zip@v1
+      with:
+        files: build/visual_studio/bin/Release/Win32/
+        recursive: false
+        dest: cheetah-msvc-release-win32.zip
+    - name: Get tag
+      id: tag
+      uses: dawidd6/action-get-tag@v1
+    - name: Release build on GitHub
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "cheetah-msvc-release-win32.zip"
+        body: Lorem ipsum
+        name: ${{steps.tag.outputs.tag}} (MSVC, Release, Win32)
+        token: ${{ secrets.GITHUB_TOKEN }}
+      
+  deploy-windows-msvc-x64-debug:
+    runs-on: windows-latest    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Install MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m /p:Configuration=Debug /p:Platform=x64 build/visual_studio/cheetah.sln
+    - name: Run tests
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: build/visual_studio/bin/Debug/x64/cheetah_tests
+    - name: Compress build
+      uses: papeloto/action-zip@v1
+      with:
+        files: build/visual_studio/bin/Debug/x64/
+        recursive: false
+        dest: cheetah-msvc-debug-win64.zip
+    - name: Get tag
+      id: tag
+      uses: dawidd6/action-get-tag@v1
+    - name: Release build on GitHub
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "cheetah-msvc-debug-win64.zip"
+        body: Lorem ipsum
+        name: ${{steps.tag.outputs.tag}} (MSVC, Debug, Win64)
+        token: ${{ secrets.GITHUB_TOKEN }}
+      
+  deploy-windows-msvc-x64-release:
+    runs-on: windows-latest    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Install MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m /p:Configuration=Release /p:Platform=x64 build/visual_studio/cheetah.sln
+    - name: Run tests
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: build/visual_studio/bin/Release/x64/cheetah_tests
+    - name: Compress build
+      uses: papeloto/action-zip@v1
+      with:
+        files: build/visual_studio/bin/Release/x64/
+        recursive: false
+        dest: cheetah-msvc-release-win64.zip
+    - name: Get tag
+      id: tag
+      uses: dawidd6/action-get-tag@v1
+    - name: Release build on GitHub
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "cheetah-msvc-release-win64.zip"
+        body: Lorem ipsum
+        name: ${{steps.tag.outputs.tag}} (MSVC, Release, Win64)
+        token: ${{ secrets.GITHUB_TOKEN }}
