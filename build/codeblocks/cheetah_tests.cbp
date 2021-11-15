@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="cheetah_tests" />
+		<Option pch_mode="2" />
+		<Option compiler="cygwin" />
+		<Build>
+			<Target title="Debug">
+				<Option output="./bin/debug/cheetah_tests" prefix_auto="1" extension_auto="1" />
+				<Option object_output="./obj/debug/" />
+				<Option type="1" />
+				<Option compiler="cygwin" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-lcheetah" />
+					<Add directory="./bin/debug/" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="./bin/release/cheetah_tests" prefix_auto="1" extension_auto="1" />
+				<Option object_output="./obj/release/" />
+				<Option type="1" />
+				<Option compiler="cygwin" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-lcheetah" />
+					<Add directory="./bin/release/" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="../../3rdparty/googletest/googletest" />
+			<Add directory="../../3rdparty/googletest/googletest/include" />
+			<Add directory="../../include" />
+		</Compiler>
+		<Unit filename="../../3rdparty/googletest/googletest/src/gtest-death-test.cc" />
+		<Unit filename="../../3rdparty/googletest/googletest/src/gtest-filepath.cc" />
+		<Unit filename="../../3rdparty/googletest/googletest/src/gtest-internal-inl.h" />
+		<Unit filename="../../3rdparty/googletest/googletest/src/gtest-matchers.cc" />
+		<Unit filename="../../3rdparty/googletest/googletest/src/gtest-port.cc" />
+		<Unit filename="../../3rdparty/googletest/googletest/src/gtest-printers.cc" />
+		<Unit filename="../../3rdparty/googletest/googletest/src/gtest-test-part.cc" />
+		<Unit filename="../../3rdparty/googletest/googletest/src/gtest-typed-test.cc" />
+		<Unit filename="../../3rdparty/googletest/googletest/src/gtest.cc" />
+		<Unit filename="../../3rdparty/googletest/googletest/src/gtest_main.cc" />
+		<Unit filename="../../tests/test_datetimeformatter.cpp" />
+		<Unit filename="../../tests/test_lock.cpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
